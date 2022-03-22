@@ -1026,17 +1026,17 @@ class ReactiveNestedSampler(object):
             self.wrapped_axes = np.where(wrapped_params)[0]
 
         self.use_mpi = False
-        try:
-            from mpi4py import MPI
-            self.comm = MPI.COMM_WORLD
-            self.mpi_size = self.comm.Get_size()
-            self.mpi_rank = self.comm.Get_rank()
-            if self.mpi_size > 1:
-                self.use_mpi = True
-                self._setup_distributed_seeds()
-        except Exception:
-            self.mpi_size = 1
-            self.mpi_rank = 0
+        # try:
+        #     from mpi4py import MPI
+        #     self.comm = MPI.COMM_WORLD
+        #     self.mpi_size = self.comm.Get_size()
+        #     self.mpi_rank = self.comm.Get_rank()
+        #     if self.mpi_size > 1:
+        #         self.use_mpi = True
+        #         self._setup_distributed_seeds()
+        # except Exception:
+        self.mpi_size = 1
+        self.mpi_rank = 0
 
         self.log = self.mpi_rank == 0
         self.log_to_disk = self.log and log_dir is not None
